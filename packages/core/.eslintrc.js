@@ -6,13 +6,15 @@ module.exports = {
   },
 
   extends: ["standard", "plugin:prettier/recommended", "prettier"],
-  parser: "vue-eslint-parser",
+  // parser: "vue-eslint-parser",
+  parser: "@typescript-eslint/parser",
 
   parserOptions: {
     requireConfigFile: false,
     sourceType: "module",
-    parser: "@babel/eslint-parser",
-    requireConfigFile: false,
+    parser: "babel-eslint",
+    // parser: "@babel/eslint-parser",
+    // requireConfigFile: false,
   },
 
   plugins: ["prettier"],
@@ -25,5 +27,9 @@ module.exports = {
     "no-undef": "off",
   },
 
-  overrides: [],
+  overrides: [
+    {
+      files: ["*.vue"],
+    },
+  ],
 }

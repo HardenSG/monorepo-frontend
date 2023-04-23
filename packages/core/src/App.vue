@@ -1,75 +1,37 @@
 <script setup lang="ts">
-  import Bottom from '@Com/bottom/index.vue'
-  import { a } from '@utils/index';
-  import { BindGlobal } from '@utils/index'
+import { RouterView } from "vue-router"
+import Loading from "@Com/Loading/index.vue"
+import Bottom from "@Com/bottom/index.vue"
+import { a, BindGlobal } from "@utils/index"
+
+import demoStore from "@stores/demoStores"
+const store = demoStore()
+store.cacheDemoList([1, 2, 3, 4])
+
+console.log(store.getDemoList)
 </script>
 
 <template>
-  <div>
-    <Bottom />
-  </div>
+  <RouterView v-slot="{ Component }">
+    <template v-if="Component">
+      <!-- custom transition mode -->
+      <Transition mode="out-in">
+        <!-- component keepAlive -->
+        <!-- exclude and include property are control all component's alive -->
+        <!-- both of them's type is MatchPattern, it about string | RegExp | (string | RegExp)[]-->
+        <keep-alive :max="10" :exclude="[]">
+          <Suspense>
+            <!-- Suspense: This is a experiment API, the aim to pending async component by #fallback Loading -->
+            <component :is="Component"></component>
+            <template #fallback>
+              <!-- custom loading component -->
+              <Loading />
+            </template>
+          </Suspense>
+        </keep-alive>
+      </Transition>
+    </template>
+  </RouterView>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+<style scoped></style>
