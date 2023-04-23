@@ -1,4 +1,4 @@
-import type { UseDemoData } from "."
+import type { UseDemoData } from '.'
 
 export default {
   state: (): UseDemoData => {

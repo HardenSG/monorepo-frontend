@@ -1,4 +1,4 @@
-import type { List, UseDemoActions } from "."
+import type { List, UseDemoActions } from '.'
 
 const actions: UseDemoActions = {
   cacheDemoList(list: List) {

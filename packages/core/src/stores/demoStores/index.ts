@@ -1,4 +1,4 @@
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'
 
 // You can define type for your pinia
 export interface UseDemoData {
@@ -9,7 +9,7 @@ export interface UseDemoGetter<T> {
   getDemoList: (state: T) => Partial<T>
   [p: string]: any
 }
-export type List = UseDemoData["demoList"]
+export type List = UseDemoData['demoList']
 
 export interface UseDemoActions {
   cacheDemoList: (list: List) => any
@@ -17,13 +17,13 @@ export interface UseDemoActions {
 }
 
 // <!-- vite: auto import --!>
-const options = import.meta.glob("./*.ts", { eager: true })
+const options = import.meta.glob('./*.ts', { eager: true })
 const store = {}
 for (const item in options) {
   Object.assign(store, (options[item] as unknown as any).default)
 }
 const stores = defineStore<string, UseDemoData, UseDemoGetter<UseDemoData>, UseDemoActions>(
-  "useDemoList",
+  'useDemoList',
   store
 )
 
